@@ -9,8 +9,7 @@ export const Note = ({ note, handleClick }) => {
 	);
 };
 
-export const 
-ListNotes = () => {
+export const ListNotes = () => {
 	const dispatch = useDispatch();
 	const notes = useSelector(state => state);
 	return (
