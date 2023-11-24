@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { toggleImportanceOf } from "../reducers";
 
+const filter = (notes, filter) => {
+	if (filter === "ALL") return notes;
+	return filter === "IMPORTANT"
+		? notes.filter(note => note.important)
+		: notes.filter(note => !note.important);
+};
+
 export const Note = ({ note, handleClick }) => {
 	return (
 		<li onClick={handleClick}>
@@ -11,7 +18,8 @@ export const Note = ({ note, handleClick }) => {
 
 export const ListNotes = () => {
 	const dispatch = useDispatch();
-	const notes = useSelector(state => state);
+	const notes = useSelector(state => filter(state.notes, state.filter));
+
 	return (
 		<div>
 			{notes.map(note => (

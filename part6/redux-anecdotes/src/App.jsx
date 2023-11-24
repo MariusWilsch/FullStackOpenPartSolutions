@@ -1,18 +1,10 @@
-import { Anecdotes } from './components';
+import { AnecdoteForm, AnecdoteList } from './components';
 
 const App = () => {
-	// const dispatch = useDispatch();
-
 	return (
 		<div>
-			<Anecdotes />
-			<h2>create new</h2>
-			<form>
-				<div>
-					<input />
-				</div>
-				<button>create</button>
-			</form>
+			<AnecdoteList />
+			<AnecdoteForm />
 		</div>
 	);
 };

@@ -9,6 +9,7 @@ const anecdotesAtStart = [
 
 const ActionTypes = {
 	INCREMENT_VOTE: 'INC_VOTE',
+	CREATE_NEW_ANECDOTE: 'CREATE_NEW',
 };
 
 const getId = () => (100000 * Math.random()).toFixed(0);
@@ -21,9 +22,21 @@ const asObject = anecdote => {
 	};
 };
 
-// const incVote = (anecdote, voteCnt) => {
-//   return {...anecdote, vote: vote + 1}
-// }
+// Action creator
+export const incVote = id => {
+	return {
+		type: ActionTypes.INCREMENT_VOTE,
+		payload: id,
+	};
+};
+
+// Action creator
+export const createNew = content => {
+	return {
+		type: ActionTypes.CREATE_NEW_ANECDOTE,
+		payload: { content, id: getId(), votes: 0 },
+	};
+};
 
 const initialState = anecdotesAtStart.map(asObject);
 
@@ -33,8 +46,14 @@ export const anecdoteReducer = (state = initialState, action) => {
 
 	switch (action.type) {
 		case ActionTypes.INCREMENT_VOTE:
+			return state.map(anecdote =>
+				anecdote.id === action.payload
+					? { ...anecdote, votes: anecdote.votes + 1 }
+					: anecdote,
+			);
+		case ActionTypes.CREATE_NEW_ANECDOTE:
 			return [...state, action.payload];
 		default:
-			break;
+			return state;
 	}
 };
